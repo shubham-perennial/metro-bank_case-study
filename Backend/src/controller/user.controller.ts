@@ -14,7 +14,7 @@ interface data {
 
 // post request handler
 
-router.post("/", async (req: Request, res: Response) => {
+const register = async (req: Request, res: Response) => {
   const data: data = req.body;
   let user; // need to change this later
   if (data.password !== data.confirmPassword)
@@ -35,6 +35,29 @@ router.post("/", async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(500).json({ message: "something went wrong" });
   }
-});
+};
+const login = async (req: Request, res: Response) => {
+  // const data = req.body;
+  let user;
+  // check if the user is present or not
+  try {
+    user = await User.findOne({ email: req.body.email }).exec();
+  } catch (err) {
+    return res.status(404).send({ message: "something went wrong" });
+  }
+  // if not present give error
+  if (!user)
+    return res
+      .status(404)
+      .send({ message: "user not found, check credentials" });
+  // if user is present check for password;
+  if (user) {
+    if (user.password === req.body.password) {
+      return res.status(200).send({ message: "login successful" });
+    } else {
+      return res.status(404).send({ message: "login failed" });
+    }
+  }
+};
 
-export default router;
+export { register, login };
