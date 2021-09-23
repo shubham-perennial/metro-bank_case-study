@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/shubham-perennial/metro-bank_case-study/issues"
   },
-  "homepage": "https://github.com/shubham-perennial/metro-bank_case-study#readme"
+  "homepage": "https://github.com/shubham-perennial/metro-bank_case-study#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
