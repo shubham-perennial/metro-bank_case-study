@@ -1,0 +1,20 @@
+{
+  "name": "metro-bank_case-study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubham-perennial/metro-bank_case-study.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubham-perennial/metro-bank_case-study/issues"
+  },
+  "homepage": "https://github.com/shubham-perennial/metro-bank_case-study#readme"
+}
