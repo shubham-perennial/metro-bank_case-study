@@ -8,7 +8,7 @@ require("dotenv").config();
 const username = process.env.MONGODB_USERNAME;
 const password = process.env.MONGODB_PASSWORD;
 const connect = () => {
-    return mongoose_1.default.connect(`mongodb+srv://${username}:${password}@cluster0.vfxfx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
+    return mongoose_1.default.connect(`mongodb+srv://${username}:${password}@cluster0.vfxfx.mongodb.net/metroBank?retryWrites=true&w=majority`, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true,

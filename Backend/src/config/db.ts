@@ -6,7 +6,7 @@ const password = process.env.MONGODB_PASSWORD;
 
 const connect = () => {
   return mongoose.connect(
-    `mongodb+srv://${username}:${password}@cluster0.vfxfx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+    `mongodb+srv://${username}:${password}@cluster0.vfxfx.mongodb.net/metroBank?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useCreateIndex: true,
