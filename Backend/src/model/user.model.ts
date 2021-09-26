@@ -12,11 +12,11 @@ interface IUser extends Document {
 
 const userSchema = new Schema<IUser>(
   {
-    name: { type: "string", required: false },
-    email: { type: "string", required: true },
-    password: { type: "string", required: true },
-    confirmPassword: { type: "string", required: true },
-    dateOfIncrp: { type: "string", required: true },
+    name: { type: String, required: false },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    confirmPassword: { type: String, required: true },
+    dateOfIncrp: { type: String, required: true },
   },
   {
     versionKey: false,
