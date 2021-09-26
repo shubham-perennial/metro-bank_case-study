@@ -1,15 +1,13 @@
-import {Request, Response,NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import User from "../model/user.model";
 
-
 const confirmPasswordFn = (req: Request, res: Response, next: NextFunction) => {
-    if (req.body.password === req.body.confirmPassword) {
-        next();
-    }
-    else {
-        return res.status(400).json("your password does not match, check again");
-    }
-}
+  if (req.body.password === req.body.confirmPassword) {
+    next();
+  } else {
+    return res.status(400).json("your password does not match, check again");
+  }
+};
 
 /// ask someone how to import this logic to user controller as middleware.
 
@@ -24,4 +22,4 @@ const confirmPasswordFn = (req: Request, res: Response, next: NextFunction) => {
 //     next()
 // }
 
-export {confirmPasswordFn}
+export { confirmPasswordFn };
