@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import { ObjectId } from "mongoose";
+import Service from "../model/services.model";
 import User from "../model/user.model";
 
 const confirmPasswordFn = (req: Request, res: Response, next: NextFunction) => {
@@ -21,5 +23,25 @@ const confirmPasswordFn = (req: Request, res: Response, next: NextFunction) => {
 //     }
 //     next()
 // }
+interface service {
+  _id: ObjectId;
+  title: string;
+  src: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// const availableServicesFn = async (
+//   req: Request,
+//   res: Response,
+//   currentServices: any
+// ) => {
+//   const services: any = await Service.findById(req.params.id);
+//   let array: any;
+//   const serviceIds = services.map((item:service) => {
+//     array.push(item._id);
+//   })
+//   console.log(array, currentServices);
+// };
 
 export { confirmPasswordFn };
