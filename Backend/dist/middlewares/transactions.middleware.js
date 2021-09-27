@@ -14,17 +14,18 @@ const storage = multer_1.default.diskStorage({
     },
 });
 //   C:\Users\Perennial\Downloads\perennial\Training\Ts-Assignment\metro-bank_case-study\Backend\dist\uploads
-console.log(path_1.default);
-// const fileFilter = (file: any, callback: any) => {
-//   if (file.mimetype === "csv" || file.mimetype === "csv") {
-//     callback(null, true);
-//   } else {
-//     callback(null, false);
-//   }
-// };
+// console.log(path);
+const fileFilter = (req, file, callback) => {
+    if (file.mimetype === "csv") {
+        callback(true);
+    }
+    else {
+        callback(false);
+    }
+};
 const upload = (0, multer_1.default)({
     storage: storage,
     limits: { fileSize: 1024 * 1024 * 5 },
-    //   fileFilter: fileFilter,
+    fileFilter: fileFilter,
 });
 exports.default = upload;
