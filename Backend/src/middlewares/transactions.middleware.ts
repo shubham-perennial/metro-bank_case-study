@@ -30,7 +30,7 @@ const fileFilter = (
 const upload = multer({
   storage: storage,
   limits: { fileSize: 1024 * 1024 * 2 }, /// make it const and also make file type const
-  fileFilter: fileFilter,
+  // fileFilter: fileFilter,
 });
 
 export default upload;
