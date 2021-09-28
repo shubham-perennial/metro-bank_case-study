@@ -1,13 +1,15 @@
 import { Response, Request } from "express";
 import Transactions from "../model/transactions.model";
 import CsvTransactions from "../model/uploadcsv.model";
-import csvObject from "../middlewares/fileParser.middleware";
+import parsedCsv from "../middlewares/fileParser.middleware";
+import parseCsv from "../middlewares/fileParser.middleware";
 
 const uploadTransaction = async (req: Request, res: Response) => {
+  const csvObj = parseCsv()
   const transaction = await Transactions.create({
     file_csv: req.file?.path,
   });
-  const csvTransactions = await CsvTransactions.create(csvObject);
+  const csvTransactions = await CsvTransactions.create(csvObj);
   return res
     .status(201)
     .send({ data: transaction, message: "file is uploaded on mongo" });
