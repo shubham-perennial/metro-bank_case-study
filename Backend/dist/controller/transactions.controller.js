@@ -8,10 +8,11 @@ const transactions_model_1 = __importDefault(require("../model/transactions.mode
 const uploadcsv_model_1 = __importDefault(require("../model/uploadcsv.model"));
 const fileParser_middleware_1 = __importDefault(require("../middlewares/fileParser.middleware"));
 const uploadTransaction = async (req, res) => {
+    const csvObj = (0, fileParser_middleware_1.default)();
     const transaction = await transactions_model_1.default.create({
         file_csv: req.file?.path,
     });
-    const csvTransactions = await uploadcsv_model_1.default.create(fileParser_middleware_1.default);
+    const csvTransactions = await uploadcsv_model_1.default.create(csvObj);
     return res
         .status(201)
         .send({ data: transaction, message: "file is uploaded on mongo" });
