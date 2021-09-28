@@ -8,7 +8,7 @@ interface IService extends Document {
 const serviceSchema = new Schema<IService>(
   {
     title: { type: String, required: true },
-    src: { type: String, required: true },
+    src: { type: String, required: true },    /// icon_url
   },
   {
     versionKey: false,

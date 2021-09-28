@@ -10,7 +10,7 @@ const storage = multer_1.default.diskStorage({
         callback(null, path_1.default.join(__dirname, "../uploads"));
     },
     filename: function (req, file, callback) {
-        callback(null, new Date().toISOString() + file.originalname);
+        callback(null, new Date().toISOString() + file.originalname); /// try with client id
     },
 });
 //   C:\Users\Perennial\Downloads\perennial\Training\Ts-Assignment\metro-bank_case-study\Backend\dist\uploads
@@ -25,7 +25,7 @@ const fileFilter = (req, file, callback) => {
 };
 const upload = (0, multer_1.default)({
     storage: storage,
-    limits: { fileSize: 1024 * 1024 * 5 },
+    limits: { fileSize: 1024 * 1024 * 2 },
     fileFilter: fileFilter,
 });
 exports.default = upload;

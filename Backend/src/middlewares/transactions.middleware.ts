@@ -1,7 +1,7 @@
 export type Callback = (err: Error | null | boolean) => void;
 import { Request } from "express";
 
-import multer from "multer";
+import multer from "multer";    
 import path from "path";
 
 const storage = multer.diskStorage({
@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
     callback(null, path.join(__dirname, "../uploads"));
   },
   filename: function (req, file, callback) {
-    callback(null, new Date().toISOString() + file.originalname);
+    callback(null, new Date().toISOString() + file.originalname); /// try with client id
   },
 });
 
@@ -29,7 +29,7 @@ const fileFilter = (
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 * 5 },
+  limits: { fileSize: 1024 * 1024 * 2 }, /// make it const and also make file type const
   fileFilter: fileFilter,
 });
 
