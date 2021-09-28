@@ -7,7 +7,7 @@ exports.getProfile = exports.createProfile = void 0;
 const profile_model_1 = __importDefault(require("../model/profile.model"));
 const createProfile = async (req, res) => {
     const profile = await profile_model_1.default.create(req.body);
-    return res.status(201).json({ data: profile });
+    return res.status(201).json({ data: profile }); // do with enum
 };
 exports.createProfile = createProfile;
 const getProfile = async (req, res) => {

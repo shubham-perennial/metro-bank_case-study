@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 const createProfile = async (req: Request, res: Response) => {
   const profile = await Profile.create(req.body);
-  return res.status(201).json({ data: profile });
+  return res.status(201).json({ data: profile });  // do with enum
 };
 
 const getProfile = async (req: Request, res: Response) => {
