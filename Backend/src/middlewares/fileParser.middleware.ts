@@ -7,10 +7,8 @@ interface buffer {
   Salery: string;
   Company: string;
 }
-
 const result: buffer[] = [];
 
-// later wrap it inside a function !important
 const parseCsv = () => {
   fs.createReadStream(
     "/home/mrcleveer/Downloads/Perennial_Training/metro bank/metro-bank_case-study/Backend/dist/uploads/2021-09-28T16:29:25.151Zdemo.csv"
@@ -19,7 +17,9 @@ const parseCsv = () => {
     .on("data", (chunk) => {
       result.push(chunk);
     })
-    .on("end", () => console.log("stream connected")); //learn what does .on does and about end also;
-    return result;
+    .on("end", () => {
+      return result;
+    }); //learn what does .on does and about end also;
+  // return result;
 };
 export default parseCsv;
