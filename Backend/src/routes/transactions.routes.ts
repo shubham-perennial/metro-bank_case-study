@@ -1,9 +1,13 @@
 import { Router } from "express";
-import Transactions from "../controller/transactions.controller";
+import {
+  uploadTransaction,
+  getTransactions,
+} from "../controller/transactions.controller";
 import upload from "../middlewares/transactions.middleware";
 
 const router = Router();
 
-router.post("/uploadfile", upload.single("file_csv"), Transactions);
+router.post("/uploadfile", upload.single("file_csv"), uploadTransaction);
+router.get("/gettransactions", getTransactions);
 
 export default router;

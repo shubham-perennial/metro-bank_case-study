@@ -25,7 +25,7 @@ const fileFilter = (req, file, callback) => {
 };
 const upload = (0, multer_1.default)({
     storage: storage,
-    limits: { fileSize: 1024 * 1024 * 2 },
-    fileFilter: fileFilter,
+    limits: { fileSize: 1024 * 1024 * 2 }, /// make it const and also make file type const
+    // fileFilter: fileFilter,
 });
 exports.default = upload;
