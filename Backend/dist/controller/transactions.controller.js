@@ -13,7 +13,6 @@ const uploadTransaction = async (req, res) => {
     });
     if (req.file?.path) {
         const path = await (0, fileParser_middleware_1.default)(req.file?.path);
-        console.log(path);
         const csvTransactions = await uploadcsv_model_1.default.create(path);
         return res.status(201).send({ message: "file uploaded successfully" });
     }

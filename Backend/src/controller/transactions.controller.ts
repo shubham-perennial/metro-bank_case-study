@@ -10,7 +10,6 @@ const uploadTransaction = async (req: Request, res: Response) => {
 
   if (req.file?.path) {
     const path = await csvtojson(req.file?.path);
-    console.log(path);
     const csvTransactions = await CsvTransactions.create(path);
     return res.status(201).send({ message: "file uploaded successfully" });
   } else {
