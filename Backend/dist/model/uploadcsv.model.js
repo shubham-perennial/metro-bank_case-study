@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const csvSchema = new mongoose_1.Schema({
     Name: { type: String, required: true },
-    Salery: { type: String, required: true },
+    Salery: { type: Number, required: true },
     Company: { type: String, required: true },
 }, {
     timestamps: true,
