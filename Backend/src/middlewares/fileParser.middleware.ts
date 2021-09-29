@@ -1,6 +1,6 @@
-import csv from "csv-parser";
-// const csv = require("csv-parser");
+import parse from "csv-parser";
 import fs from "fs";
+import getStream from "get-stream";
 
 interface buffer {
   Name: string;
@@ -9,17 +9,19 @@ interface buffer {
 }
 const result: buffer[] = [];
 
-const parseCsv = () => {
-  fs.createReadStream(
-    "/home/mrcleveer/Downloads/Perennial_Training/metro bank/metro-bank_case-study/Backend/dist/uploads/2021-09-28T16:29:25.151Zdemo.csv"
-  )
-    .pipe(csv())
-    .on("data", (chunk) => {
-      result.push(chunk);
-    })
-    .on("end", () => {
-      return result;
-    }); //learn what does .on does and about end also;
-  // return result;
+const parseCsv = async (filepath: string): Promise<any> => {
+  const parseStream = parse();
+  const data = await getStream.array(
+    fs.createReadStream(filepath).pipe(parseStream)
+  );
+  // .on("data", (chunk) => {
+  //   result.push(chunk);
+  // })
+  // .on("end", () => {
+  //   console.log("stream ran");
+  // });
+  // const objData = data.map((item: any) => result.push(item));
+  return data;
+  // console.log(data);
 };
 export default parseCsv;

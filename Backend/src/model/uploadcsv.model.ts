@@ -2,14 +2,14 @@ import { Schema, Document, model, Model } from "mongoose";
 
 interface Icsv extends Document {
   Name: string;
-  Salery: string;
+  Salery: number;
   Company: string;
 }
 
 const csvSchema = new Schema<Icsv>(
   {
     Name: { type: String, required: true },
-    Salery: { type: String, required: true },
+    Salery: { type: Number, required: true },
     Company: { type: String, required: true },
   },
   {

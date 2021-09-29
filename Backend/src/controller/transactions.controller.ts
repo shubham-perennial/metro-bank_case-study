@@ -1,18 +1,21 @@
-import { Response, Request } from "express";
+import { Response, Request, NextFunction } from "express";
 import Transactions from "../model/transactions.model";
 import CsvTransactions from "../model/uploadcsv.model";
-import parsedCsv from "../middlewares/fileParser.middleware";
-import parseCsv from "../middlewares/fileParser.middleware";
+import csvtojson from "../middlewares/fileParser.middleware";
 
 const uploadTransaction = async (req: Request, res: Response) => {
-  const csvObj = parseCsv()
   const transaction = await Transactions.create({
     file_csv: req.file?.path,
   });
-  const csvTransactions = await CsvTransactions.create(csvObj);
-  return res
-    .status(201)
-    .send({ data: transaction, message: "file is uploaded on mongo" });
+
+  if (req.file?.path) {
+    const path = await csvtojson(req.file?.path);
+    console.log(path);
+    const csvTransactions = await CsvTransactions.create(path);
+    return res.status(201).send({ message: "file uploaded successfully" });
+  } else {
+    return res.status(404).send({ message: "Please upload the file" });
+  }
 };
 
 const getTransactions = async (req: Request, res: Response) => {
