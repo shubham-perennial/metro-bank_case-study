@@ -10,7 +10,7 @@ const profile_routes_1 = __importDefault(require("./routes/profile.routes"));
 const transactions_routes_1 = __importDefault(require("./routes/transactions.routes"));
 // import parseCsv from "./middlewares/fileParser.middleware";
 const app = (0, express_1.default)();
-const cors = require("cors");
+const cors = require("cors"); // do npm i @types/cors
 app.use(cors());
 app.use(express_1.default.json());
 app.use("/user", user_routes_1.default);

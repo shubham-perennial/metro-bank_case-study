@@ -4,15 +4,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = exports.register = void 0;
+// import { DataTypes } from "sequelize";
 const user_model_1 = __importDefault(require("../model/user.model"));
 // register function
 const register = async (req, res) => {
     let user;
     try {
-        user = await user_model_1.default.findOne({ email: req.body.email }).lean().exec(); // lean and exec explore it
+        user = await user_model_1.default.findOne({ where: { email: req.body.email } }); // lean and exec explore it
+        console.log(user);
     }
     catch (err) {
-        res.status(500).send({ message: `Please check your connection and try again` }); /// proper messages // describe what went wrong
+        res
+            .status(500)
+            .send({ message: `Please check your connection and try again` }); /// proper messages // describe what went wrong
     }
     if (user)
         return res.status(400).send({ message: "User is already present" });
@@ -29,7 +33,8 @@ exports.register = register;
 const login = async (req, res) => {
     let user;
     try {
-        user = await user_model_1.default.findOne({ email: req.body.email }).exec();
+        user = await user_model_1.default.findOne({ where: { email: req.body.email } });
+        // console.log(user);
     }
     catch (err) {
         return res.status(404).send({ message: err });
@@ -38,12 +43,17 @@ const login = async (req, res) => {
         return res
             .status(404)
             .send({ message: "User not found, check your credentials" });
+    // return res.status(200).send({ user });
     if (user) {
         if (user.password === req.body.password) {
-            return res.status(200).send({ message: "You have successfully logged in." });
+            return res
+                .status(200)
+                .send({ message: "You have successfully logged in." });
         }
         else {
-            return res.status(404).send({ message: "Login Failed, please check your email and password" });
+            return res.status(404).send({
+                message: "Login Failed, please check your email and password",
+            });
         }
     }
 };
