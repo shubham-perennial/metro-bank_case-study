@@ -1,29 +1,43 @@
-import { Schema, Model, model, Document } from "mongoose";
-// creating an interface for representing a doc in mongodb
-interface IUser extends Document {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  dateOfIncrp: string;
-}
+// import { Schema, Model, model, Document } from "mongoose";
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "../config/db";
+// const sequelize = new Sequelize(
+//   "mysql://root:perennial@2021@localhost:3306/metrobank"
+// );
 
-/// creating a schema corresponding to the interface
+/// creating Model for sql
 
-const userSchema = new Schema<IUser>(
+class User extends Model {
+  public name!: string;
+  public email!: string;
+  public password!: string;
+  public confirmPassword!: string;
+  public dateOfIncrp!: string;
+} //  /// if you do .define then no need of this method but with .define method you won't be able to access 
+// properties of obj return from sql query
+
+User.init(
   {
-    name: { type: String, required: false },
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-    confirmPassword: { type: String, required: true },
-    dateOfIncrp: { type: String, required: true },
+    name: { type: DataTypes.STRING, allowNull: false },
+    email: { type: DataTypes.STRING, allowNull: false },
+    password: { type: DataTypes.STRING, allowNull: false },
+    confirmPassword: { type: DataTypes.STRING, allowNull: false },
+    dateOfIncrp: { type: DataTypes.STRING, allowNull: false },
   },
   {
-    versionKey: false,
-    timestamps: true,
+    tableName: "users",
+    sequelize,
   }
 );
 
-/// create a model instance
-const Register: Model<IUser> = model("user", userSchema);
-export default Register;
+// const User = sqlConnect.define("user", {
+//   name: { type: DataTypes.STRING, allowNull: false },
+//   email: { type: DataTypes.STRING, allowNull: false },
+//   password: { type: DataTypes.STRING, allowNull: false },
+//   confirmPassword: { type: DataTypes.STRING, allowNull: false },
+//   dateOfIncrp: { type: DataTypes.STRING, allowNull: false },
+// });
+
+
+
+export default User;

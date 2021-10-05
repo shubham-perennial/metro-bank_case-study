@@ -1,21 +1,21 @@
-import { Schema, Document, model, Model } from "mongoose";
+// import { Schema, Document, model, Model } from "mongoose";
+import { Model, DataTypes } from "sequelize";
+import { sequelize } from "../config/db";
 
-interface IService extends Document {
-  title: string;
-  src: string;
+class Services extends Model {
+  public title!: string;
+  public icon_url!: string;
 }
 
-const serviceSchema = new Schema<IService>(
+Services.init(
   {
-    title: { type: String, required: true },
-    src: { type: String, required: true },    /// icon_url
+    title: { type: DataTypes.STRING, allowNull: false },
+    icon_url: { type: DataTypes.STRING, allowNull: false },
   },
   {
-    versionKey: false,
-    timestamps: true,
+    tableName: "services",
+    sequelize,
   }
 );
 
-const service: Model<IService> = model("service", serviceSchema);
-
-export default service;
+export default Services;

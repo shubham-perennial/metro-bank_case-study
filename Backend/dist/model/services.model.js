@@ -1,12 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const serviceSchema = new mongoose_1.Schema({
-    title: { type: String, required: true },
-    src: { type: String, required: true }, /// icon_url
+// import { Schema, Document, model, Model } from "mongoose";
+const sequelize_1 = require("sequelize");
+const db_1 = require("../config/db");
+class Services extends sequelize_1.Model {
+}
+Services.init({
+    title: { type: sequelize_1.DataTypes.STRING, allowNull: false },
+    icon_url: { type: sequelize_1.DataTypes.STRING, allowNull: false },
 }, {
-    versionKey: false,
-    timestamps: true,
+    tableName: "services",
+    sequelize: db_1.sequelize,
 });
-const service = (0, mongoose_1.model)("service", serviceSchema);
-exports.default = service;
+exports.default = Services;

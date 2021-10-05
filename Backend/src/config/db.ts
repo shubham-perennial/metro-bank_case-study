@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import { Sequelize } from "sequelize";
+// const Sequelize = require("sequelize");
+
 require("dotenv").config();
 
 const username = process.env.MONGODB_USERNAME;
@@ -16,4 +19,6 @@ const connect = () => {
   );
 };
 
-export default connect;
+const sequelize = new Sequelize("mysql://root:perennial@2021@localhost:3306/metrobank");
+
+export {connect, sequelize};

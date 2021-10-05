@@ -1,4 +1,4 @@
-import { NextFunction, Response, Request, Router } from "express";
+import { NextFunction, Response, Request } from "express";
 import Services from "../model/services.model";
 
 const addServices = async (req: Request, res: Response, next: NextFunction) => {
@@ -7,7 +7,7 @@ const addServices = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getServices = async (req: Request, res: Response, next: NextFunction) => {
-  const service = await Services.find();
+  const service = await Services.findAll();
   return res.status(200).json({ data: service });
 };
 

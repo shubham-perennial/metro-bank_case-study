@@ -6,7 +6,7 @@ import transactionRouter from "./routes/transactions.routes";
 // import parseCsv from "./middlewares/fileParser.middleware";
 
 const app = express();
-const cors = require("cors");
+const cors = require("cors"); // do npm i @types/cors
 app.use(cors());
 app.use(express.json());
 

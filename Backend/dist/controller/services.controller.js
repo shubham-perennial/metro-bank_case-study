@@ -11,7 +11,7 @@ const addServices = async (req, res, next) => {
 };
 exports.addServices = addServices;
 const getServices = async (req, res, next) => {
-    const service = await services_model_1.default.find();
+    const service = await services_model_1.default.findAll();
     return res.status(200).json({ data: service });
 };
 exports.getServices = getServices;
