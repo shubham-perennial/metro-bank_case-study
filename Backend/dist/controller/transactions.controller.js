@@ -22,7 +22,13 @@ const uploadTransaction = async (req, res) => {
 };
 exports.uploadTransaction = uploadTransaction;
 const getTransactions = async (req, res) => {
-    const csvtransaction = await uploadcsv_model_1.default.findAll();
+    const limit = Number(req.query.limit);
+    const page = Number(req.query.page);
+    const csvtransaction = await uploadcsv_model_1.default.findAll({
+        order: [["id", "DESC"]],
+        limit: limit,
+        offset: limit * page - limit,
+    });
     return res.status(200).send({ data: csvtransaction });
 };
 exports.getTransactions = getTransactions;

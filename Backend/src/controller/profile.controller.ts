@@ -2,7 +2,6 @@ import Profile from "../model/profile.model";
 import { Request, Response } from "express";
 import Services from "../model/services.model";
 import ServiceProfile from "../model/serviceProfile.model";
-import { Json } from "sequelize/types/lib/utils";
 
 const createProfile = async (req: Request, res: Response) => {
   const serviceId = req.body.ServiceId;
