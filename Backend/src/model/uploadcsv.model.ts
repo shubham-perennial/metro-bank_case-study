@@ -1,23 +1,40 @@
-import { Schema, Document, model, Model } from "mongoose";
+// import { Schema, Document, model, Model } from "mongoose";
+import { Model, DataTypes } from "sequelize";
+import { sequelize } from "../config/db";
 
-interface Icsv extends Document {
-  Name: string;
-  Salery: number;
-  Company: string;
+class CsvTransactions extends Model {
+  public Name!: string;
+  public Salery!: number;
+  public Company!: string;
 }
 
-const csvSchema = new Schema<Icsv>(
+CsvTransactions.init(
   {
-    Name: { type: String, required: true },
-    Salery: { type: Number, required: true },
-    Company: { type: String, required: true },
+    Name: { type: DataTypes.STRING, allowNull: false },
+    Salery: { type: DataTypes.STRING, allowNull: false },
+    Company: { type: DataTypes.STRING, allowNull: false },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
+  { tableName: "csvTransactions", sequelize }
 );
 
-const csvTransactions: Model<Icsv> = model("csvTransactions", csvSchema);
+// interface Icsv extends Document {
+//   Name: string;
+//   Salery: number;
+//   Company: string;
+// }
 
-export default csvTransactions;
+// const csvSchema = new Schema<Icsv>(
+//   {
+//     Name: { type: String, required: true },
+//     Salery: { type: Number, required: true },
+//     Company: { type: String, required: true },
+//   },
+//   {
+//     timestamps: true,
+//     versionKey: false,
+//   }
+// );
+
+// const csvTransactions: Model<Icsv> = model("csvTransactions", csvSchema);
+
+export default CsvTransactions;

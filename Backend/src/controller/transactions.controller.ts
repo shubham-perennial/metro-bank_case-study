@@ -9,8 +9,8 @@ const uploadTransaction = async (req: Request, res: Response) => {
   });
 
   if (req.file?.path) {
-    const path = await csvtojson(req.file?.path);
-    const csvTransactions = await CsvTransactions.create(path);
+    const csvObj = await csvtojson(req.file?.path);
+    const csvTransactions = await CsvTransactions.bulkCreate(csvObj);
     return res.status(201).send({ message: "file uploaded successfully" });
   } else {
     return res.status(404).send({ message: "Please upload the file" });
@@ -18,7 +18,7 @@ const uploadTransaction = async (req: Request, res: Response) => {
 };
 
 const getTransactions = async (req: Request, res: Response) => {
-  const csvtransaction = await CsvTransactions.find().lean().exec();
+  const csvtransaction = await CsvTransactions.findAll();
   return res.status(200).send({ data: csvtransaction });
 };
 
