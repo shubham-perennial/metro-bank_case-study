@@ -15,10 +15,6 @@ app.use("/services", serviceRouter);
 app.use("/profile", profileRouter);
 app.use("/transactions", transactionRouter);
 
-// const data = parseCsv(
-//   "/home/mrcleveer/Downloads/Perennial_Training/metro bank/metro-bank_case-study/Backend/dist/uploads/2021-09-29T15:20:00.185Zdummy.csv"
-// );
-// console.log(data);
 
 /// error handling middleware this will fire if any middleware before this have an error
 // this middleware will be called for every request to the app as this app.use is called without any route

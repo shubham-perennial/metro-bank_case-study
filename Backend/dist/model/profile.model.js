@@ -1,17 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const profileSchema = new mongoose_1.Schema({
-    userId: { type: mongoose_1.Schema.Types.ObjectId, ref: "user", required: true },
-    accountNo: { type: Number, required: true },
-    income: { type: Number, required: true },
-    spends: { type: Number, required: true },
-    currentServices: [
-        { type: mongoose_1.Schema.Types.ObjectId, ref: "service", required: true },
-    ],
+// import { Document, Model, model, Schema } from "mongoose";
+const sequelize_1 = require("sequelize");
+const db_1 = require("../config/db");
+class Profile extends sequelize_1.Model {
+}
+Profile.init({
+    accountNo: { type: sequelize_1.DataTypes.INTEGER, allowNull: false },
+    income: { type: sequelize_1.DataTypes.INTEGER, allowNull: false },
+    spends: { type: sequelize_1.DataTypes.INTEGER, allowNull: false },
 }, {
-    versionKey: false,
-    timestamps: true,
+    tableName: "profiles",
+    sequelize: db_1.sequelize,
 });
-const Profile = (0, mongoose_1.model)("profile", profileSchema);
 exports.default = Profile;
