@@ -1,25 +1,30 @@
 import { Request, Response } from "express";
-// import { DataTypes } from "sequelize";
 import User from "../model/user.model";
+import Status from "../utility/statusCode";
 
 // register function
 
 const register = async (req: Request, res: Response) => {
   let user;
   try {
-    user = await User.findOne({ where: { email: req.body.email } }); // lean and exec explore it
+    user = await User.findOne({ where: { email: req.body.email } });
     console.log(user);
   } catch (err) {
     res
-      .status(500)
-      .send({ message: `Please check your connection and try again` }); /// proper messages // describe what went wrong
+      .status(Status.RequestFailure)
+      .send({ message: `Please check your connection and try again` });
   }
-  if (user) return res.status(400).send({ message: "User is already present" });
+  if (user)
+    return res
+      .status(Status.NotFound)
+      .send({ message: "User is already present" });
   try {
     user = await User.create(req.body);
-    return res.status(201).json({ data: user });
+    return res.status(Status.Created).json({ data: user });
   } catch (err) {
-    return res.status(500).json({ message: `user cannot be created ${err}` });
+    return res
+      .status(Status.RequestFailure)
+      .json({ message: `user cannot be created ${err}` });
   }
 };
 
@@ -30,23 +35,21 @@ const login = async (req: Request, res: Response) => {
 
   try {
     user = await User.findOne({ where: { email: req.body.email } });
-    // console.log(user);
   } catch (err) {
-    return res.status(404).send({ message: err });
+    return res.status(Status.RequestFailure).send({ message: err });
   }
 
   if (!user)
     return res
-      .status(404)
+      .status(Status.NotFound)
       .send({ message: "User not found, check your credentials" });
-  // return res.status(200).send({ user });
   if (user) {
     if (user.password === req.body.password) {
       return res
-        .status(200)
+        .status(Status.Success)
         .send({ message: "You have successfully logged in." });
     } else {
-      return res.status(404).send({
+      return res.status(Status.NotFound).send({
         message: "Login Failed, please check your email and password",
       });
     }

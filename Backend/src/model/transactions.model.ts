@@ -1,4 +1,3 @@
-// import { Schema, Document, model, Model } from "mongoose";
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/db";
 
@@ -12,24 +11,5 @@ Transactions.init(
   },
   { tableName: "transactions", sequelize }
 );
-
-// interface Itransactions extends Document {
-//   file_csv: string;
-// }
-
-// const transactionSchema = new Schema<Itransactions>(
-//   {
-//     file_csv: { type: String, required: true },
-//   },
-//   {
-//     timestamps: true,
-//     versionKey: false,
-//   }
-// );
-
-// const transactions: Model<Itransactions> = model(
-//   "transaction",
-//   transactionSchema
-// );
 
 export default Transactions;
