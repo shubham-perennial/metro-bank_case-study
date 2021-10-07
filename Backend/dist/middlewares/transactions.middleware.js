@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// import { Request } from "express";
 const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const storage = multer_1.default.diskStorage({
@@ -11,7 +10,7 @@ const storage = multer_1.default.diskStorage({
         callback(null, path_1.default.join(__dirname, "../uploads"));
     },
     filename: function (req, file, callback) {
-        callback(null, new Date().toISOString() + file.originalname); /// try with client id
+        callback(null, new Date().toISOString() + file.originalname); /// try with client id replace date
     },
 });
 //   C:\Users\Perennial\Downloads\perennial\Training\Ts-Assignment\metro-bank_case-study\Backend\dist\uploads

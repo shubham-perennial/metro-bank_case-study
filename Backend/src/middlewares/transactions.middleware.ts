@@ -1,5 +1,4 @@
-export type Callback = (err: Error | null | boolean) => void;
-// import { Request } from "express";
+export type Callback = (err: Error | null | boolean) => void; // why this ?
 
 import multer from "multer";    
 import path from "path";
@@ -9,7 +8,7 @@ const storage = multer.diskStorage({
     callback(null, path.join(__dirname, "../uploads"));
   },
   filename: function (req, file, callback) {
-    callback(null, new Date().toISOString() + file.originalname); /// try with client id
+    callback(null, new Date().toISOString() + file.originalname); /// try with client id replace date
   },
 });
 

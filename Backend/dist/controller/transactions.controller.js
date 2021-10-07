@@ -12,8 +12,8 @@ const uploadTransaction = async (req, res) => {
         file_csv: req.file?.path,
     });
     if (req.file?.path) {
-        const path = await (0, fileParser_middleware_1.default)(req.file?.path);
-        const csvTransactions = await uploadcsv_model_1.default.create(path);
+        const csvObj = await (0, fileParser_middleware_1.default)(req.file?.path);
+        const csvTransactions = await uploadcsv_model_1.default.bulkCreate(csvObj);
         return res.status(201).send({ message: "file uploaded successfully" });
     }
     else {
@@ -22,7 +22,7 @@ const uploadTransaction = async (req, res) => {
 };
 exports.uploadTransaction = uploadTransaction;
 const getTransactions = async (req, res) => {
-    const csvtransaction = await uploadcsv_model_1.default.find().lean().exec();
+    const csvtransaction = await uploadcsv_model_1.default.findAll();
     return res.status(200).send({ data: csvtransaction });
 };
 exports.getTransactions = getTransactions;
