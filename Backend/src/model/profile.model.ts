@@ -1,33 +1,23 @@
-import { Document, Model, model, Schema } from "mongoose";
+// import { Document, Model, model, Schema } from "mongoose";
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "../config/db";
 
-interface serviceCards {
-  src: String;
-  title: String;
+class Profile extends Model {
+  public accountNo!: number;
+  public income!: number;
+  public spends!: number;
 }
 
-interface Iprofile extends Document {
-  accountNo: number;
-  income: number;
-  spends: number;
-  currentServices: string[];
-  availableServices: serviceCards[];
-}
-
-const profileSchema = new Schema<Iprofile>(
+Profile.init(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "user", required: true },
-    accountNo: { type: Number, required: true },
-    income: { type: Number, required: true },
-    spends: { type: Number, required: true },
-    currentServices: [
-      { type: Schema.Types.ObjectId, ref: "service", required: true },
-    ],
+    accountNo: { type: DataTypes.INTEGER, allowNull: false },
+    income: { type: DataTypes.INTEGER, allowNull: false },
+    spends: { type: DataTypes.INTEGER, allowNull: false },
   },
   {
-    versionKey: false,
-    timestamps: true,
+    tableName: "profiles",
+    sequelize,
   }
 );
 
-const Profile: Model<Iprofile> = model("profile", profileSchema);
 export default Profile;
