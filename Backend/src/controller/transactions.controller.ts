@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction } from "express";
+import { Response, Request } from "express";
 import Transactions from "../model/transactions.model";
 import CsvTransactions from "../model/uploadcsv.model";
 import csvtojson from "../middlewares/fileParser.middleware";
@@ -18,7 +18,13 @@ const uploadTransaction = async (req: Request, res: Response) => {
 };
 
 const getTransactions = async (req: Request, res: Response) => {
-  const csvtransaction = await CsvTransactions.findAll();
+  const limit: number = Number(req.query.limit);
+  const page: number = Number(req.query.page);
+  const csvtransaction = await CsvTransactions.findAll({
+    order: [["id", "DESC"]],
+    limit: limit,
+    offset: limit * page - limit,
+  });
   return res.status(200).send({ data: csvtransaction });
 };
 
