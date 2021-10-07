@@ -7,6 +7,7 @@ exports.getProfile = exports.createProfile = void 0;
 const profile_model_1 = __importDefault(require("../model/profile.model"));
 const services_model_1 = __importDefault(require("../model/services.model"));
 const serviceProfile_model_1 = __importDefault(require("../model/serviceProfile.model"));
+const statusCode_1 = __importDefault(require("../utility/statusCode"));
 const createProfile = async (req, res) => {
     const serviceId = req.body.ServiceId;
     const userId = req.body.UserId;
@@ -18,13 +19,15 @@ const createProfile = async (req, res) => {
             UserId: userId,
         });
     });
-    return res.status(201).json({ data: profile }); // do with enum
+    return res.status(statusCode_1.default.Success).json({ data: profile });
 };
 exports.createProfile = createProfile;
 const getProfile = async (req, res) => {
     const servIds = req.body.servIds;
     const profile = await profile_model_1.default.findByPk(req.params.id);
     const profileServ = await services_model_1.default.findAll({ where: { id: [...servIds] } });
-    return res.status(200).json({ profile, currentServices: profileServ });
+    return res
+        .status(statusCode_1.default.Success)
+        .json({ profile, currentServices: profileServ });
 };
 exports.getProfile = getProfile;

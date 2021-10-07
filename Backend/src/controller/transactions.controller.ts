@@ -2,6 +2,7 @@ import { Response, Request } from "express";
 import Transactions from "../model/transactions.model";
 import CsvTransactions from "../model/uploadcsv.model";
 import csvtojson from "../middlewares/fileParser.middleware";
+import Status from "../utility/statusCode"
 
 const uploadTransaction = async (req: Request, res: Response) => {
   const transaction = await Transactions.create({
@@ -11,9 +12,9 @@ const uploadTransaction = async (req: Request, res: Response) => {
   if (req.file?.path) {
     const csvObj = await csvtojson(req.file?.path);
     const csvTransactions = await CsvTransactions.bulkCreate(csvObj);
-    return res.status(201).send({ message: "file uploaded successfully" });
+    return res.status(Status.Created).send({ message: "file uploaded successfully" });
   } else {
-    return res.status(404).send({ message: "Please upload the file" });
+    return res.status(Status.NotFound).send({ message: "Please upload the file" });
   }
 };
 
@@ -25,7 +26,7 @@ const getTransactions = async (req: Request, res: Response) => {
     limit: limit,
     offset: limit * page - limit,
   });
-  return res.status(200).send({ data: csvtransaction });
+  return res.status(Status.Success).send({ data: csvtransaction });
 };
 
 export { uploadTransaction, getTransactions };

@@ -1,4 +1,3 @@
-// import { Schema, Document, model, Model } from "mongoose";
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../config/db";
 
@@ -16,25 +15,5 @@ CsvTransactions.init(
   },
   { tableName: "csvTransactions", sequelize }
 );
-
-// interface Icsv extends Document {
-//   Name: string;
-//   Salery: number;
-//   Company: string;
-// }
-
-// const csvSchema = new Schema<Icsv>(
-//   {
-//     Name: { type: String, required: true },
-//     Salery: { type: Number, required: true },
-//     Company: { type: String, required: true },
-//   },
-//   {
-//     timestamps: true,
-//     versionKey: false,
-//   }
-// );
-
-// const csvTransactions: Model<Icsv> = model("csvTransactions", csvSchema);
 
 export default CsvTransactions;
