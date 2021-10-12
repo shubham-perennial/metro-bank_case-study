@@ -8,6 +8,7 @@ class Services extends Model {
 
 Services.init(
   {
+    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
     title: { type: DataTypes.STRING, allowNull: false },
     icon_url: { type: DataTypes.STRING, allowNull: false },
   },

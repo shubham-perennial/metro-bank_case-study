@@ -6,7 +6,6 @@ import Profile from "../model/profile.model";
 import ServiceProfile from "../model/serviceProfile.model";
 
 User.hasOne(Profile);
-// Profile.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 Services.belongsToMany(User, {
   through: ServiceProfile,
 });
@@ -15,7 +14,6 @@ User.belongsToMany(Services, {
 });
 
 app.listen(2244, async () => {
-  await connect();
   await sequelize;
   await sequelize.sync();
   console.log("listen on port 2244");

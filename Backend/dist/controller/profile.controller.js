@@ -8,26 +8,35 @@ const profile_model_1 = __importDefault(require("../model/profile.model"));
 const services_model_1 = __importDefault(require("../model/services.model"));
 const serviceProfile_model_1 = __importDefault(require("../model/serviceProfile.model"));
 const statusCode_1 = __importDefault(require("../utility/statusCode"));
-const createProfile = async (req, res) => {
+const createProfile = async (req, res, next) => {
     const serviceId = req.body.ServiceId;
     const userId = req.body.UserId;
-    console.log(serviceId);
-    const profile = await profile_model_1.default.create(req.body);
-    await serviceId.map((item) => {
-        serviceProfile_model_1.default.create({
-            ServiceId: item,
-            UserId: userId,
+    try {
+        const profile = await profile_model_1.default.create(req.body);
+        await serviceId.map((item) => {
+            serviceProfile_model_1.default.create({
+                ServiceId: item,
+                UserId: userId,
+            });
         });
-    });
-    return res.status(statusCode_1.default.Success).json({ data: profile });
+        return res.status(statusCode_1.default.Created).json({ data: profile });
+    }
+    catch (err) {
+        return res.status(statusCode_1.default.RequestFailure).json({ message: err });
+    }
 };
 exports.createProfile = createProfile;
 const getProfile = async (req, res) => {
     const servIds = req.body.servIds;
-    const profile = await profile_model_1.default.findByPk(req.params.id);
-    const profileServ = await services_model_1.default.findAll({ where: { id: [...servIds] } });
-    return res
-        .status(statusCode_1.default.Success)
-        .json({ profile, currentServices: profileServ });
+    try {
+        // const profile = await Profile.findByPk(req.params.id);
+        const profileServ = await services_model_1.default.findAll();
+        return res
+            .status(statusCode_1.default.Success)
+            .json({ currentServices: profileServ });
+    }
+    catch (err) {
+        return res.status(statusCode_1.default.RequestFailure).json({ message: err });
+    }
 };
 exports.getProfile = getProfile;

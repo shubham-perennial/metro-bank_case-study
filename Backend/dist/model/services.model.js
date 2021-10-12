@@ -5,6 +5,7 @@ const db_1 = require("../config/db");
 class Services extends sequelize_1.Model {
 }
 Services.init({
+    uuid: { type: sequelize_1.DataTypes.UUID, defaultValue: sequelize_1.DataTypes.UUIDV4 },
     title: { type: sequelize_1.DataTypes.STRING, allowNull: false },
     icon_url: { type: sequelize_1.DataTypes.STRING, allowNull: false },
 }, {
