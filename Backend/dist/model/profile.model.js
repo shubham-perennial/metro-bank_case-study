@@ -6,6 +6,7 @@ const db_1 = require("../config/db");
 class Profile extends sequelize_1.Model {
 }
 Profile.init({
+    uuid: { type: sequelize_1.DataTypes.UUID, defaultValue: sequelize_1.DataTypes.UUIDV4 },
     accountNo: { type: sequelize_1.DataTypes.INTEGER, allowNull: false },
     income: { type: sequelize_1.DataTypes.INTEGER, allowNull: false },
     spends: { type: sequelize_1.DataTypes.INTEGER, allowNull: false },

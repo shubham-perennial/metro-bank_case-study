@@ -8,16 +8,11 @@ const register = async (req: Request, res: Response) => {
   let user;
   try {
     user = await User.findOne({ where: { email: req.body.email } });
-    console.log(user);
   } catch (err) {
     res
       .status(Status.RequestFailure)
       .send({ message: `Please check your connection and try again` });
   }
-  if (user)
-    return res
-      .status(Status.NotFound)
-      .send({ message: "User is already present" });
   try {
     user = await User.create(req.body);
     return res.status(Status.Created).json({ data: user });

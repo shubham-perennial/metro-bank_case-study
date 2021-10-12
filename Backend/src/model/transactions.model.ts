@@ -7,6 +7,7 @@ class Transactions extends Model {
 
 Transactions.init(
   {
+    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
     file_csv: { type: DataTypes.STRING, allowNull: false },
   },
   { tableName: "transactions", sequelize }

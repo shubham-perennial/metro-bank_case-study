@@ -1,34 +1,43 @@
 import Profile from "../model/profile.model";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import Services from "../model/services.model";
 import ServiceProfile from "../model/serviceProfile.model";
 import Status from "../utility/statusCode";
 
-
-const createProfile = async (req: Request, res: Response) => {
+const createProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const serviceId = req.body.ServiceId;
   const userId = req.body.UserId;
-  console.log(serviceId);
-  const profile = await Profile.create(req.body);
+  try {
+    const profile = await Profile.create(req.body);
 
-  await serviceId.map((item: number) => {
-    ServiceProfile.create({
-      ServiceId: item,
-      UserId: userId,
+    await serviceId.map((item: number) => {
+      ServiceProfile.create({
+        ServiceId: item,
+        UserId: userId,
+      });
     });
-  });
 
-  return res.status(Status.Success).json({ data: profile });
+    return res.status(Status.Created).json({ data: profile });
+  } catch (err) {
+    return res.status(Status.RequestFailure).json({ message: err });
+  }
 };
 
 const getProfile = async (req: Request, res: Response) => {
   const servIds = req.body.servIds;
-  const profile = await Profile.findByPk(req.params.id);
-  const profileServ = await Services.findAll({ where: { id: [...servIds] } });
-
-  return res
-    .status(Status.Success)
-    .json({ profile, currentServices: profileServ });
+  try {
+    // const profile = await Profile.findByPk(req.params.id);
+    const profileServ = await Services.findAll();
+    return res
+      .status(Status.Success)
+      .json({ currentServices: profileServ });
+  } catch (err) {
+    return res.status(Status.RequestFailure).json({ message: err });
+  }
 };
 
 export { createProfile, getProfile };

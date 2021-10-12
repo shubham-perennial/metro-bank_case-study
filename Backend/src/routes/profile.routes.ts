@@ -4,7 +4,7 @@ import { getServicesForProfile } from "../middlewares/getProfile.middleware";
 
 const router = Router();
 
-router.post("/createprofile", createProfile);
+router.post("/", createProfile);
 router.get("/:id", getServicesForProfile, getProfile);
 
 export default router;

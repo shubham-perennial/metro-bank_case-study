@@ -3,7 +3,7 @@ import { addServices, getServices } from "../controller/services.controller";
 
 const router = Router();
 
-router.post("/addservices", addServices);
-router.get("/", getServices);
+router.post("/", addServices);
+router.get("/getservices", getServices);
 
 export default router;

@@ -10,6 +10,7 @@ class Profile extends Model {
 
 Profile.init(
   {
+    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
     accountNo: { type: DataTypes.INTEGER, allowNull: false },
     income: { type: DataTypes.INTEGER, allowNull: false },
     spends: { type: DataTypes.INTEGER, allowNull: false },

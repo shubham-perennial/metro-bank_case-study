@@ -8,6 +8,6 @@ import upload from "../middlewares/transactions.middleware";
 const router = Router();
 
 router.post("/uploadfile", upload.single("file_csv"), uploadTransaction);
-router.get("/gettransactions", getTransactions);
+router.get("/", getTransactions);
 
 export default router;

@@ -11,17 +11,12 @@ const register = async (req, res) => {
     let user;
     try {
         user = await user_model_1.default.findOne({ where: { email: req.body.email } });
-        console.log(user);
     }
     catch (err) {
         res
             .status(statusCode_1.default.RequestFailure)
             .send({ message: `Please check your connection and try again` });
     }
-    if (user)
-        return res
-            .status(statusCode_1.default.NotFound)
-            .send({ message: "User is already present" });
     try {
         user = await user_model_1.default.create(req.body);
         return res.status(statusCode_1.default.Created).json({ data: user });
