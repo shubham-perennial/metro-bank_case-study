@@ -26,14 +26,14 @@ const createProfile = async (req, res, next) => {
     }
 };
 exports.createProfile = createProfile;
-const getProfile = async (req, res) => {
+const getProfile = async (req, res, next) => {
     const servIds = req.body.servIds;
     try {
-        // const profile = await Profile.findByPk(req.params.id);
-        const profileServ = await services_model_1.default.findAll();
+        const profile = await profile_model_1.default.findByPk(req.params.id);
+        const profileServ = await services_model_1.default.findAll({ where: { id: [...servIds] } });
         return res
             .status(statusCode_1.default.Success)
-            .json({ currentServices: profileServ });
+            .json({ profile });
     }
     catch (err) {
         return res.status(statusCode_1.default.RequestFailure).json({ message: err });
