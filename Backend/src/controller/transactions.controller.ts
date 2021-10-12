@@ -5,20 +5,39 @@ import csvtojson from "../middlewares/fileParser.middleware";
 import Status from "../utility/statusCode";
 
 const uploadTransaction = async (req: Request, res: Response) => {
-  const transaction = await Transactions.create({
-    file_csv: req.file?.path,
-  });
+  try {
+    const transaction = await Transactions.create({
+      file_csv: req.file?.path,
+    });
 
-  if (req.file?.path) {
-    const csvObj = await csvtojson(req.file?.path);
-    const csvTransactions = await CsvTransactions.bulkCreate(csvObj);
+    if (req.file?.path) {
+      let csvObj;
+      try {
+        csvObj = await csvtojson(req.file?.path);
+      } catch (err) {
+        return res
+          .status(Status.RequestFailure)
+          .json({ message: "promise rejected at csv parser" });
+      }
+      try {
+        const csvTransactions = await CsvTransactions.bulkCreate(csvObj);
+        return res
+          .status(Status.Created)
+          .send({ message: "file uploaded successfully" });
+      } catch (err) {
+        return res
+          .status(Status.RequestFailure)
+          .json({ message: "bulk data upload failed to sql" });
+      }
+    } else {
+      return res
+        .status(Status.NotFound)
+        .send({ message: "Please upload the file" });
+    }
+  } catch (err) {
     return res
-      .status(Status.Created)
-      .send({ message: "file uploaded successfully" });
-  } else {
-    return res
-      .status(Status.NotFound)
-      .send({ message: "Please upload the file" });
+      .status(Status.RequestFailure)
+      .json({ message: "file path upload failed" });
   }
 };
 

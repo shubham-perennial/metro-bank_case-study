@@ -9,20 +9,42 @@ const uploadcsv_model_1 = __importDefault(require("../model/uploadcsv.model"));
 const fileParser_middleware_1 = __importDefault(require("../middlewares/fileParser.middleware"));
 const statusCode_1 = __importDefault(require("../utility/statusCode"));
 const uploadTransaction = async (req, res) => {
-    const transaction = await transactions_model_1.default.create({
-        file_csv: req.file?.path,
-    });
-    if (req.file?.path) {
-        const csvObj = await (0, fileParser_middleware_1.default)(req.file?.path);
-        const csvTransactions = await uploadcsv_model_1.default.bulkCreate(csvObj);
-        return res
-            .status(statusCode_1.default.Created)
-            .send({ message: "file uploaded successfully" });
+    try {
+        const transaction = await transactions_model_1.default.create({
+            file_csv: req.file?.path,
+        });
+        if (req.file?.path) {
+            let csvObj;
+            try {
+                csvObj = await (0, fileParser_middleware_1.default)(req.file?.path);
+            }
+            catch (err) {
+                return res
+                    .status(statusCode_1.default.RequestFailure)
+                    .json({ message: "promise rejected at csv parser" });
+            }
+            try {
+                const csvTransactions = await uploadcsv_model_1.default.bulkCreate(csvObj);
+                return res
+                    .status(statusCode_1.default.Created)
+                    .send({ message: "file uploaded successfully" });
+            }
+            catch (err) {
+                return res
+                    .status(statusCode_1.default.RequestFailure)
+                    .json({ message: "bulk data upload failed to sql" });
+            }
+        }
+        else {
+            return res
+                .status(statusCode_1.default.NotFound)
+                .send({ message: "Please upload the file" });
+        }
     }
-    else {
+    catch (err) {
         return res
-            .status(statusCode_1.default.NotFound)
-            .send({ message: "Please upload the file" });
+            .status(statusCode_1.default.RequestFailure)
+            .json({ message: "file path upload failed" });
     }
 };
 exports.uploadTransaction = uploadTransaction;

@@ -38,19 +38,19 @@ describe("all rest apis", () => {
       result.should.have.status(203);
     });
 
-    // it("add services req", async () => {
-    //   const result = await chai.request(app).post("/services");
-    //   result.should.have.status(201);
-    // });
+    it("add services req", async () => {
+      const result = await chai.request(app).post("/services");
+      result.should.have.status(203);
+    });
 
     it("create user profile", async () => {
       const result = await chai.request(app).post("/profiles");
       result.should.have.status(203);
     });
 
-    // it("file upload req", async () => {
-    //   const result = await chai.request(app).post("/transactions/uploadfile/");
-    //   result.should.have.status(201);
-    // });
+    it("file upload req", async () => {
+      const result = await chai.request(app).post("/transactions/uploadfile/");
+      result.should.have.status(203);
+    });
   });
 });
