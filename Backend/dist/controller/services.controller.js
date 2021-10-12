@@ -7,12 +7,22 @@ exports.getServices = exports.addServices = void 0;
 const services_model_1 = __importDefault(require("../model/services.model"));
 const statusCode_1 = __importDefault(require("../utility/statusCode"));
 const addServices = async (req, res, next) => {
-    const service = await services_model_1.default.create(req.body);
-    return res.status(statusCode_1.default.Created).json({ data: service });
+    try {
+        const service = await services_model_1.default.create(req.body);
+        return res.status(statusCode_1.default.Created).json({ data: service });
+    }
+    catch (err) {
+        return res.status(statusCode_1.default.RequestFailure).json({ message: err });
+    }
 };
 exports.addServices = addServices;
 const getServices = async (req, res, next) => {
-    const service = await services_model_1.default.findAll();
-    return res.status(statusCode_1.default.Success).json({ data: service });
+    try {
+        const service = await services_model_1.default.findAll();
+        return res.status(statusCode_1.default.Success).json({ data: service });
+    }
+    catch (err) {
+        return res.status(statusCode_1.default.RequestFailure).json({ message: err });
+    }
 };
 exports.getServices = getServices;

@@ -14,9 +14,7 @@ const getServicesForProfile = async (
       where: { UserId: userId },
     });
     serviceIds.map((item: any) => array.push(item.ServiceId));
-
     req.body.servIds = array;
-
     next();
   } catch (err) {
     return res.status(Status.RequestFailure).json({ message: err });
