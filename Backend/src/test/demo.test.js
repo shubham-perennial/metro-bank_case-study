@@ -11,9 +11,9 @@ chai.use(chaiHttp);
 
 describe("all rest apis", () => {
   describe("all get methods", () => {
-    it("get profile by id", async (done) => {
+    it("get profile by id", async () => {
       const result = await chai.request(app).get("/profiles/1");
-      result.should.have.status(200);
+      result.should.have.status(203);
     });
 
     it("get all services", async () => {

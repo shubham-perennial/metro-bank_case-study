@@ -27,14 +27,14 @@ const createProfile = async (
   }
 };
 
-const getProfile = async (req: Request, res: Response) => {
+const getProfile = async (req: Request, res: Response, next: NextFunction) => {
   const servIds = req.body.servIds;
   try {
-    // const profile = await Profile.findByPk(req.params.id);
-    const profileServ = await Services.findAll();
+    const profile = await Profile.findByPk(req.params.id);
+    const profileServ = await Services.findAll({ where: { id: [...servIds] } });
     return res
       .status(Status.Success)
-      .json({ currentServices: profileServ });
+      .json({ profile});
   } catch (err) {
     return res.status(Status.RequestFailure).json({ message: err });
   }
