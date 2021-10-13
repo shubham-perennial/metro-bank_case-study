@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 describe("all rest apis", () => {
   describe("all get methods", () => {
     it("get profile by id", async () => {
-      const result = await chai.request(app).get("/profiles/1");
+      const result = await chai.request(app).get("/profiles/:id");
       result.should.have.status(203);
     });
 

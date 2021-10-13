@@ -11,7 +11,7 @@ const storage = multer_1.default.diskStorage({
         callback(null, path_1.default.join(__dirname, "../uploads"));
     },
     filename: function (req, file, callback) {
-        callback(null, new Date().toISOString() + file.originalname); /// try with client id replace date
+        callback(null, new Date().toISOString() + file.originalname);
     },
 });
 // const fileFilter = (

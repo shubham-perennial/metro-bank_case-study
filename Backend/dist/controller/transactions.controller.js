@@ -52,11 +52,18 @@ const getTransactions = async (req, res) => {
     let limit, page;
     req.query.limit ? (limit = Number(req.query.limit)) : (limit = 10);
     req.query.page ? (page = Number(req.query.page)) : (page = 1);
-    const csvtransaction = await uploadcsv_model_1.default.findAll({
-        order: [["id", "ASC"]],
-        limit: limit,
-        offset: limit * page - limit,
-    });
-    return res.status(statusCode_1.default.Success).send({ data: csvtransaction });
+    try {
+        const csvtransaction = await uploadcsv_model_1.default.findAll({
+            order: [["id", "ASC"]],
+            limit: limit,
+            offset: limit * page - limit,
+        });
+        return res.status(statusCode_1.default.Success).send({ data: csvtransaction });
+    }
+    catch (err) {
+        return res
+            .status(statusCode_1.default.RequestFailure)
+            .send({ message: "cannot fetch transactions" });
+    }
 };
 exports.getTransactions = getTransactions;
