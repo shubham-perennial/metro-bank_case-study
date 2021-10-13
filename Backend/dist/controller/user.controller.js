@@ -19,12 +19,12 @@ const register = async (req, res) => {
     }
     try {
         user = await user_model_1.default.create(req.body);
-        return res.status(statusCode_1.default.Created).json({ data: user });
+        return res.status(statusCode_1.default.Created).send({ data: user });
     }
     catch (err) {
         return res
             .status(statusCode_1.default.RequestFailure)
-            .json({ message: `user cannot be created ${err}` });
+            .send({ message: `user cannot be created ${err}` });
     }
 };
 exports.register = register;

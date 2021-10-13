@@ -15,11 +15,11 @@ const register = async (req: Request, res: Response) => {
   }
   try {
     user = await User.create(req.body);
-    return res.status(Status.Created).json({ data: user });
+    return res.status(Status.Created).send({ data: user });
   } catch (err) {
     return res
       .status(Status.RequestFailure)
-      .json({ message: `user cannot be created ${err}` });
+      .send({ message: `user cannot be created ${err}` });
   }
 };
 
